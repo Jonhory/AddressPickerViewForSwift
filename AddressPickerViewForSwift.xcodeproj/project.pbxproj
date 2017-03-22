@@ -8,16 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		BB56BF121E81649100A0527B /* AddressPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB56BF111E81649100A0527B /* AddressPickerView.swift */; };
+		BBABCDB31E8206A9001FA01C /* address.json in Resources */ = {isa = PBXBuildFile; fileRef = BBABCDB21E8206A9001FA01C /* address.json */; };
 		BBBBE5101E814C6D00AB4D3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBBE50F1E814C6D00AB4D3D /* AppDelegate.swift */; };
 		BBBBE5121E814C6D00AB4D3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBBE5111E814C6D00AB4D3D /* ViewController.swift */; };
 		BBBBE5151E814C6D00AB4D3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBBE5131E814C6D00AB4D3D /* Main.storyboard */; };
 		BBBBE5171E814C6D00AB4D3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBBBE5161E814C6D00AB4D3D /* Assets.xcassets */; };
 		BBBBE51A1E814C6D00AB4D3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBBE5181E814C6D00AB4D3D /* LaunchScreen.storyboard */; };
-		BBBBE5271E814EE000AB4D3D /* address.json in Resources */ = {isa = PBXBuildFile; fileRef = BBBBE5261E814EE000AB4D3D /* address.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BB56BF111E81649100A0527B /* AddressPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressPickerView.swift; sourceTree = "<group>"; };
+		BBABCDB21E8206A9001FA01C /* address.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = address.json; sourceTree = "<group>"; };
 		BBBBE50C1E814C6D00AB4D3D /* AddressPickerViewForSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AddressPickerViewForSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBBE50F1E814C6D00AB4D3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBBBE5111E814C6D00AB4D3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -25,7 +26,6 @@
 		BBBBE5161E814C6D00AB4D3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BBBBE5191E814C6D00AB4D3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BBBBE51B1E814C6E00AB4D3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BBBBE5261E814EE000AB4D3D /* address.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = address.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +72,7 @@
 		BBBBE5251E814EC900AB4D3D /* AddressPickerView */ = {
 			isa = PBXGroup;
 			children = (
-				BBBBE5261E814EE000AB4D3D /* address.json */,
+				BBABCDB21E8206A9001FA01C /* address.json */,
 				BB56BF111E81649100A0527B /* AddressPickerView.swift */,
 			);
 			path = AddressPickerView;
@@ -139,7 +139,7 @@
 			files = (
 				BBBBE51A1E814C6D00AB4D3D /* LaunchScreen.storyboard in Resources */,
 				BBBBE5171E814C6D00AB4D3D /* Assets.xcassets in Resources */,
-				BBBBE5271E814EE000AB4D3D /* address.json in Resources */,
+				BBABCDB31E8206A9001FA01C /* address.json in Resources */,
 				BBBBE5151E814C6D00AB4D3D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
