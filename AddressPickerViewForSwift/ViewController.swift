@@ -18,7 +18,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        showIDLabel.frame = CGRect(x: 0, y: 0, width: 200, height: 30)
+        showIDLabel.frame = CGRect(x: 0, y: 0, width: 200, height: 80)
+        showIDLabel.numberOfLines = 0
         showIDLabel.textColor = UIColor.red
         showIDLabel.text = "这里展示选中的对应的ID"
         showIDLabel.textAlignment = .center
@@ -56,11 +57,17 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: AddressPickerViewDelegate {
-    func addressSure(provinceID: Int, cityID: Int, regionID: Int) {
+    func addressSure(provinceID: Int?, cityID: Int?, regionID: Int?) {
         showIDLabel.text = "\(provinceID) , \(cityID) , \(regionID)"
     }
     
-    func addressSure(province: String, city: String, region: String) {
-        showStrLabel.text = province + city + region
+    func addressSure(province: String?, city: String?, region: String?) {
+        var p = ""
+        var c = ""
+        var r = ""
+        if province != nil { p = province! }
+        if city != nil { c = city! }
+        if region != nil { r = region! }
+        showStrLabel.text = p + c + r
     }
 }

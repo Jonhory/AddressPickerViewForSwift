@@ -9,13 +9,13 @@
 import UIKit
 
 protocol AddressPickerViewDelegate: class {
-    func addressSure(province: String, city: String, region: String)
+    func addressSure(province: String?, city: String?, region: String?)
     
-    func addressSure(provinceID: Int, cityID: Int, regionID: Int)
+    func addressSure(provinceID: Int?, cityID: Int?, regionID: Int?)
 }
 
 class AddressPickerView: UIView {
-
+    
     class Province {
         var name: String!
         var id: Int!
@@ -98,16 +98,23 @@ class AddressPickerView: UIView {
             if selectR > c.regionModelArr.count - 1 {
                 selectR = c.regionModelArr.count - 1
             }
-            let r = c.regionModelArr[selectR]
-            delegate?.addressSure(province: p.name, city: c.name, region: r.name)
-            delegate?.addressSure(provinceID: p.id, cityID: c.id, regionID: r.id)
+            var rStr: String? = nil
+            var rID: Int? = nil
+            if c.regionModelArr.count > 1 {
+                let r = c.regionModelArr[selectR]
+                rStr = r.name
+                rID = r.id
+            }
+            
+            delegate?.addressSure(province: p.name, city: c.name, region: rStr)
+            delegate?.addressSure(provinceID: p.id, cityID: c.id, regionID: rID)
         }
         hide()
     }
     
     //MARK: 初始化
     class func addTo(superView: UIView) -> AddressPickerView {
-        let pickerView = AddressPickerView(frame: CGRect(x: 0, y: 0, width: superView.frame.width, height: superView.frame.height))
+        let pickerView = AddressPickerView(frame: CGRect(x: 0, y: superView.frame.height - 249, width: superView.frame.width, height: 249))
         superView.addSubview(pickerView)
         return pickerView
     }
@@ -118,12 +125,12 @@ class AddressPickerView: UIView {
         loadAddressData()
         loadBackView()
     }
-
+    
     private func loadBackView() {
         addSubview(backView)
         backView.frame = self.bounds
         backView.addTarget(self, action: #selector(hide), for: .touchUpInside)
-        backView.backgroundColor = UIColor(red: 151/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.3)
+        //        backView.backgroundColor = UIColor(red: 151/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.3)
     }
     
     private func loadAddressPicker() {
@@ -138,7 +145,7 @@ class AddressPickerView: UIView {
             
             barView = UIView()
             barView?.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: barHeight)
-//            let backColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
+            //            let backColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
             barView?.backgroundColor = UIColor.white
             addSubview(barView!)
             
@@ -188,7 +195,7 @@ class AddressPickerView: UIView {
         regionIDDict = dataDict!["regionID"] as! [String: Int]?
         
         if provinceIDDict == nil || cityIDDict == nil || regionIDDict == nil { return }
-
+        
         let provinceCount = provincesArr!.count
         for i in 0..<provinceCount {
             let pName = provincesArr![i]
@@ -238,7 +245,7 @@ class AddressPickerView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }
 
 extension AddressPickerView: UIPickerViewDelegate {
