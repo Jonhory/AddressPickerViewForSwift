@@ -33,6 +33,13 @@ class AddressPickerView: UIView {
         var id: Int!
     }
     
+    typealias lastResultBlock = (_ p:Int, _ c:Int, _ r:Int) -> ()
+    var isAutoOpenLast: Bool = true {
+        didSet {
+            handleIsOpenLasst()
+        }
+    }
+    
     let SELFSIZE = UIScreen.main.bounds.size
     let backView = UIButton()
     var pickerView: UIPickerView?
@@ -105,7 +112,9 @@ class AddressPickerView: UIView {
                 rStr = r.name
                 rID = r.id
             }
-            
+            if isAutoOpenLast {
+                saveResult(pIdx: selectP, cIdx: selectC, rIdx: selectR)
+            }
             delegate?.addressSure(province: p.name, city: c.name, region: rStr)
             delegate?.addressSure(provinceID: p.id, cityID: c.id, regionID: rID)
         }
@@ -126,11 +135,24 @@ class AddressPickerView: UIView {
         loadBackView()
     }
     
+    private func handleIsOpenLasst() {
+        if isAutoOpenLast {
+            getLastIdx(block: {[weak self] (p, c, r)  in
+                self?.pickerView?.selectRow(p, inComponent: 0, animated: false)
+                self?.pickerView?.selectRow(c, inComponent: 1, animated: false)
+                self?.pickerView?.selectRow(r, inComponent: 2, animated: false)
+            })
+        } else {
+            self.pickerView?.selectRow(0, inComponent: 0, animated: false)
+            self.pickerView?.selectRow(0, inComponent: 1, animated: false)
+            self.pickerView?.selectRow(0, inComponent: 2, animated: false)
+        }
+    }
+    
     private func loadBackView() {
         addSubview(backView)
         backView.frame = self.bounds
         backView.addTarget(self, action: #selector(hide), for: .touchUpInside)
-        //        backView.backgroundColor = UIColor(red: 151/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.3)
     }
     
     private func loadAddressPicker() {
@@ -164,6 +186,8 @@ class AddressPickerView: UIView {
             sureBtn?.setTitleColor(sureColor, for: UIControlState())
             sureBtn?.frame = CGRect(x: (barView?.frame.size.width)! - 80, y: 0, width: 80, height: barHeight)
             barView?.addSubview(sureBtn!)
+            
+            handleIsOpenLasst()
         }
     }
     
@@ -334,5 +358,25 @@ extension AddressPickerView: UIPickerViewDataSource {
         default:
             return 0
         }
+    }
+}
+
+let addressProvinceIdxName = "addressProvinceIdxName"
+let addressCityIdxName     = "addressCityIdxName"
+let addressRegionIdxName   = "addressRegionIdxName"
+
+extension AddressPickerView {
+    func saveResult(pIdx: Int, cIdx: Int, rIdx: Int) {
+        UserDefaults.standard.setValue(pIdx, forKey: addressProvinceIdxName)
+        UserDefaults.standard.setValue(cIdx, forKey: addressCityIdxName)
+        UserDefaults.standard.setValue(rIdx, forKey: addressRegionIdxName)
+    }
+    
+    func getLastIdx(block: @escaping lastResultBlock) {
+        let p = UserDefaults.standard.value(forKey: addressProvinceIdxName) as? Int
+        let c = UserDefaults.standard.value(forKey: addressCityIdxName) as? Int
+        let r = UserDefaults.standard.value(forKey: addressRegionIdxName) as? Int
+        
+        block(p ?? 0, c ?? 0, r ?? 0)
     }
 }

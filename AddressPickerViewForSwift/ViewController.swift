@@ -36,6 +36,7 @@ class ViewController: UIViewController {
         
         picker = AddressPickerView.addTo(superView: view)
         picker?.delegate = self
+//        picker?.isAutoOpenLast = false
         picker?.show()
         // Do any additional setup after loading the view, typically from a nib.
     }
