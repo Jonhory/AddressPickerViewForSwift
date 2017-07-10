@@ -59,7 +59,7 @@ class ViewController: UIViewController {
 
 extension ViewController: AddressPickerViewDelegate {
     func addressSure(provinceID: Int?, cityID: Int?, regionID: Int?) {
-        showIDLabel.text = "\(provinceID) , \(cityID) , \(regionID)"
+        showIDLabel.text = "\(String(describing: provinceID)) , \(String(describing: cityID)) , \(String(describing: regionID))"
     }
     
     func addressSure(province: String?, city: String?, region: String?) {
