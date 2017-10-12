@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         picker?.delegate = self
 //        picker?.isAutoOpenLast = false
         picker?.show()
-        // Do any additional setup after loading the view, typically from a nib.
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -59,7 +59,17 @@ class ViewController: UIViewController {
 
 extension ViewController: AddressPickerViewDelegate {
     func addressSure(provinceID: Int?, cityID: Int?, regionID: Int?) {
-        showIDLabel.text = "\(String(describing: provinceID)) , \(String(describing: cityID)) , \(String(describing: regionID))"
+        var strID = ""
+        if let p = provinceID {
+            strID += "省：\(p)  "
+        }
+        if let c = cityID {
+            strID += "市：\(c)  "
+        }
+        if let r = regionID {
+            strID += "区：\(r)"
+        }
+        showIDLabel.text = strID
     }
     
     func addressSure(province: String?, city: String?, region: String?) {
