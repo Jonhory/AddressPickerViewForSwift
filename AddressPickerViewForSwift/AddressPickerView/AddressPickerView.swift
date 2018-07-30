@@ -34,6 +34,7 @@ class AddressPickerView: UIView {
     }
     
     typealias lastResultBlock = (_ p:Int, _ c:Int, _ r:Int) -> ()
+    /// 是否自动显示上次的结果，默认是
     var isAutoOpenLast: Bool = true {
         didSet {
             handleIsOpenLasst()
