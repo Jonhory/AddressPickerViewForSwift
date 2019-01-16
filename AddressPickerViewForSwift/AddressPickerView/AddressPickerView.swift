@@ -15,6 +15,24 @@ struct AddressPickerKey {
     static let regionIdxName   = "addressRegionIdxName"
 }
 
+/// 方便开发者修改各种颜色
+final class AddressPickerColor {
+    
+    var cancelBtn = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1.0)
+    var sureBtn = UIColor(red: 5/255.0, green: 5/255.0, blue: 5/255.0, alpha: 1.0)
+    var barViewBackground = UIColor.white
+    var pickerViewBackground = UIColor(red: 239/255.0, green: 239/255.0, blue: 244/255.0, alpha: 1.0)
+    var pickerRowTitle = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1.0)
+    
+    init(cancelBtn: UIColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1.0), sureBtn: UIColor = UIColor(red: 5/255.0, green: 5/255.0, blue: 5/255.0, alpha: 1.0), barViewBackground: UIColor = UIColor.white, pickerViewBackground: UIColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 244/255.0, alpha: 1.0), pickerRowTitle: UIColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1.0)) {
+        self.cancelBtn = cancelBtn
+        self.sureBtn = sureBtn
+        self.barViewBackground = barViewBackground
+        self.pickerViewBackground = pickerViewBackground
+        self.pickerRowTitle = pickerRowTitle
+    }
+}
+
 protocol AddressPickerViewDelegate: class {
     
     func addressSure(province: String?, city: String?, region: String?)
@@ -63,6 +81,8 @@ final class AddressPickerView: UIView {
         }
     }
     
+    var colorConfig: AddressPickerColor = AddressPickerColor()
+    
     let SELFSIZE = UIScreen.main.bounds.size
     let backView = UIButton()
     var pickerView: UIPickerView?
@@ -94,10 +114,15 @@ final class AddressPickerView: UIView {
     lazy var provinceModelArr: [Province] = []
     
     //MARK: 初始化
-    class func addTo(superView: UIView) -> AddressPickerView {
-        let pickerView = AddressPickerView(frame: CGRect(x: 0, y: superView.frame.height - 249, width: superView.frame.width, height: 249))
+    class func addTo(superView: UIView, colorConfig: AddressPickerColor = AddressPickerColor()) -> AddressPickerView {
+        let pickerView = AddressPickerView(frame: CGRect(x: 0, y: superView.frame.height - 249, width: superView.frame.width, height: 249), colorConfig)
         superView.addSubview(pickerView)
         return pickerView
+    }
+    
+    convenience init(frame: CGRect, _ colorConfig: AddressPickerColor) {
+        self.init(frame: frame)
+        self.colorConfig = colorConfig
     }
     
     override init(frame: CGRect) {
@@ -141,30 +166,27 @@ extension AddressPickerView {
             let dframe = CGRect(x: 0, y: self.bounds.height + barHeight, width: self.bounds.width, height: pickerHeight)
             
             pickerView = UIPickerView(frame: dframe)
-            pickerView?.backgroundColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 244/255.0, alpha: 1.0)
+            pickerView?.backgroundColor = colorConfig.pickerViewBackground
             pickerView?.delegate = self
             pickerView?.dataSource = self
             addSubview(pickerView!)
             
             barView = UIView()
             barView?.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: barHeight)
-            //            let backColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
-            barView?.backgroundColor = UIColor.white
+            barView?.backgroundColor = colorConfig.barViewBackground
             addSubview(barView!)
             
             cancelBtn = UIButton(type: .custom)
-            cancelBtn?.setTitle("取消", for: UIControlState())
+            cancelBtn?.setTitle("取消", for: .normal)
             cancelBtn?.addTarget(self, action: #selector(hide), for: .touchUpInside)
-            let cancelColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1.0)
-            cancelBtn?.setTitleColor(cancelColor, for: UIControlState())
+            cancelBtn?.setTitleColor(colorConfig.cancelBtn, for: .normal)
             cancelBtn?.frame = CGRect(x: 0, y: 0, width: 80, height: barHeight)
             barView?.addSubview(cancelBtn!)
             
             sureBtn = UIButton(type: .custom)
-            sureBtn?.setTitle("确定", for: UIControlState())
+            sureBtn?.setTitle("确定", for: .normal)
             sureBtn?.addTarget(self, action: #selector(sure), for: .touchUpInside)
-            let sureColor = UIColor(red: 5/255.0, green: 5/255.0, blue: 5/255.0, alpha: 1.0)
-            sureBtn?.setTitleColor(sureColor, for: UIControlState())
+            sureBtn?.setTitleColor(colorConfig.sureBtn, for: .normal)
             sureBtn?.frame = CGRect(x: (barView?.frame.size.width)! - 80, y: 0, width: 80, height: barHeight)
             barView?.addSubview(sureBtn!)
             
@@ -356,7 +378,7 @@ extension AddressPickerView: UIPickerViewDelegate {
         var label = view as? UILabel
         if label == nil {
             label = UILabel()
-            label?.textColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1.0)
+            label?.textColor = colorConfig.pickerRowTitle
             label?.adjustsFontSizeToFitWidth = true
             label?.textAlignment = .center
             label?.font = UIFont.systemFont(ofSize: 15)

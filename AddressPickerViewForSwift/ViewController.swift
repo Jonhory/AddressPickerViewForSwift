@@ -33,8 +33,13 @@ class ViewController: UIViewController {
         showStrLabel.center = CGPoint(x: view.center.x, y: view.center.y - 150)
         view.addSubview(showStrLabel)
         
+        let config = AddressPickerColor()
+        config.cancelBtn = .red
+        config.barViewBackground = .lightGray
+        config.pickerRowTitle = .blue
         
-        picker = AddressPickerView.addTo(superView: view)
+        picker = AddressPickerView.addTo(superView: view, colorConfig: config)
+//        picker = AddressPickerView.addTo(superView: view)
         picker?.delegate = self
 //        picker?.isAutoOpenLast = false
         picker?.show()
