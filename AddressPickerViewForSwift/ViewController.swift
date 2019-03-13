@@ -15,6 +15,11 @@ class ViewController: UIViewController {
     let showStrLabel = UILabel()
     let btn = UIButton(type: .custom)
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        picker?.show()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,8 +47,6 @@ class ViewController: UIViewController {
 //        picker = AddressPickerView.addTo(superView: view)
         picker?.delegate = self
 //        picker?.isAutoOpenLast = false
-        picker?.show()
-
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

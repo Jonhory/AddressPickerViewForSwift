@@ -145,7 +145,9 @@ extension AddressPickerView {
         if isAutoOpenLast {
             getLastIdx(block: {[weak self] (p, c, r)  in
                 self?.pickerView?.selectRow(p, inComponent: 0, animated: false)
+                self?.pickerView?.reloadComponent(1)
                 self?.pickerView?.selectRow(c, inComponent: 1, animated: false)
+                self?.pickerView?.reloadComponent(2)
                 self?.pickerView?.selectRow(r, inComponent: 2, animated: false)
             })
         } else {
