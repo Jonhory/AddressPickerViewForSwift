@@ -39,9 +39,6 @@ class ViewController: UIViewController {
         view.addSubview(showStrLabel)
         
         let config = AddressPickerColor()
-        config.cancelBtn = .red
-        config.barViewBackground = .lightGray
-        config.pickerRowTitle = .blue
         
         picker = AddressPickerView.addTo(superView: view, colorConfig: config)
 //        picker = AddressPickerView.addTo(superView: view)

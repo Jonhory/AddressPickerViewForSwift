@@ -18,13 +18,18 @@ struct AddressPickerKey {
 /// 方便开发者修改各种颜色
 final class AddressPickerColor {
     
+    /// 取消按钮文字颜色
     var cancelBtn = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1.0)
+    /// 确认按钮文字颜色
     var sureBtn = UIColor(red: 5/255.0, green: 5/255.0, blue: 5/255.0, alpha: 1.0)
-    var barViewBackground = UIColor.white
+    /// 整体背景颜色
+    var barViewBackground = UIColor(red: 243/255.0, green: 243/255.0, blue: 243/255.0, alpha: 1.0)
+    /// 滚动视图背景颜色
     var pickerViewBackground = UIColor(red: 239/255.0, green: 239/255.0, blue: 244/255.0, alpha: 1.0)
+    /// 滚动视图文字颜色
     var pickerRowTitle = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1.0)
     
-    init(cancelBtn: UIColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1.0), sureBtn: UIColor = UIColor(red: 5/255.0, green: 5/255.0, blue: 5/255.0, alpha: 1.0), barViewBackground: UIColor = UIColor.white, pickerViewBackground: UIColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 244/255.0, alpha: 1.0), pickerRowTitle: UIColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1.0)) {
+    init(cancelBtn: UIColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1.0), sureBtn: UIColor = UIColor(red: 5/255.0, green: 5/255.0, blue: 5/255.0, alpha: 1.0), barViewBackground: UIColor = UIColor(red: 243/255.0, green: 243/255.0, blue: 243/255.0, alpha: 1.0), pickerViewBackground: UIColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 244/255.0, alpha: 1.0), pickerRowTitle: UIColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1.0)) {
         self.cancelBtn = cancelBtn
         self.sureBtn = sureBtn
         self.barViewBackground = barViewBackground
@@ -90,6 +95,7 @@ final class AddressPickerView: UIView {
     var cancelBtn: UIButton?
     var sureBtn: UIButton?
     
+    /// 动画时长
     fileprivate let animateTime = 0.68
     fileprivate let barHeight: CGFloat = 49.0
     fileprivate let pickerHeight: CGFloat = 200
@@ -286,7 +292,7 @@ extension AddressPickerView {
         }
     }
     
-    func hide() {
+    @objc func hide() {
         UIView.animate(withDuration: animateTime, animations: {
             self.pickerView?.frame = CGRect(x: 0, y: self.bounds.height + self.barHeight, width: self.bounds.width, height: self.pickerHeight)
             self.barView?.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: self.barHeight)
@@ -297,7 +303,7 @@ extension AddressPickerView {
         }
     }
     
-    func sure() {
+    @objc func sure() {
         if delegate != nil {
             let selectP = pickerView!.selectedRow(inComponent: 0)
             var selectC = pickerView!.selectedRow(inComponent: 1)
